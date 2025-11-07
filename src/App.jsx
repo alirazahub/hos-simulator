@@ -6,6 +6,7 @@ import {
   Container,
 } from "@mui/material";
 import Navbar from "./components/Navbar";
+import HOSSimulator from "./components/HOSSimulator/HOSSimulator";
 
 export default function App() {
   const [mode, setMode] = useState("light");
@@ -45,10 +46,10 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Navbar mode={mode} onToggle={toggleMode} />
+      <Navbar />
 
       <Container maxWidth="lg" sx={{ mt: 4 }}>
-        Hello
+        <HOSSimulator />
       </Container>
     </ThemeProvider>
   );
