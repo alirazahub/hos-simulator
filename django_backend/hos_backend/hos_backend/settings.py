@@ -60,6 +60,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'https://hos-simulator.vercel.app',
 ]
 
 # If you prefer to allow all origins during development, you can use:
