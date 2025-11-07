@@ -88,7 +88,7 @@ const HOSSimulator = () => {
       setDropoffCoords(dropRes ? dropRes.coords : null);
 
       try {
-        const resp = await fetch("http://127.0.0.1:8000/api/process/", {
+        const resp = await fetch("https://hos-simulator-server.vercel.app/api/process/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ tripDistance, cycleUsed }),
