@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from hos_backend.wsgi import application
+app = application
 
 
 def main():
