@@ -1,4 +1,5 @@
 import { InputAdornment, TextField } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const MuiInput = ({
   label,
@@ -10,6 +11,7 @@ const MuiInput = ({
   max,
   fullWidth = true,
 }) => {
+  const theme = useTheme();
   return (
     <TextField
       label={label}
@@ -33,10 +35,11 @@ const MuiInput = ({
       sx={{
         "& .MuiOutlinedInput-root": {
           borderRadius: 2,
-          backgroundColor: "white",
+          backgroundColor: theme.palette.mode === 'dark' ? 'transparent' : 'white',
+          color: 'text.primary',
           "&.Mui-focused fieldset": {
-            borderColor: "#D32F2F",
-            boxShadow: "0 0 0 2px rgba(211,47,47,0.2)",
+            borderColor: 'error.main',
+            boxShadow: theme.palette.mode === 'dark' ? `0 0 0 2px rgba(255,111,0,0.12)` : `0 0 0 2px rgba(211,47,47,0.2)`,
           },
         },
       }}

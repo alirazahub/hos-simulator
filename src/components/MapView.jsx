@@ -1,6 +1,7 @@
 // components/MapView.jsx
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+import { useTheme } from '@mui/material/styles';
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -34,6 +35,7 @@ const FitBounds = ({ positions }) => {
 };
 
 export default function MapView({ points = [] }) {
+  const theme = useTheme();
   const positions = points.map((p) => p?.coords).filter(Boolean);
   const center = positions[0] || [48.8566, 2.3522]; // Default: Paris
 
@@ -79,7 +81,7 @@ export default function MapView({ points = [] }) {
             )
         )}
 
-        {positions.length >= 2 && <Polyline positions={positions} color="blue" weight={4} />}
+  {positions.length >= 2 && <Polyline positions={positions} color={theme.palette.primary.main} weight={4} />}
 
         <FitBounds positions={positions} />
       </MapContainer>
@@ -97,7 +99,7 @@ export default function MapView({ points = [] }) {
         <LegendItem color={markerColors.current} label="Current Location" />
         <LegendItem color={markerColors.pickup} label="Pickup Location" />
         <LegendItem color={markerColors.dropoff} label="Dropoff Location" />
-        <LegendItem color="blue" label="Travel Route" line />
+        <LegendItem color={theme.palette.primary.main} label="Travel Route" line />
       </div>
     </div>
   );
@@ -123,7 +125,7 @@ function LegendItem({ color, label, line = false }) {
             height: "15px",
             borderRadius: "50%",
             backgroundColor: color,
-            border: "1px solid #333",
+            border: "1px solid rgba(0,0,0,0.45)",
           }}
         />
       )}

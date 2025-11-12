@@ -1,1 +1,14 @@
 @import "leaflet/dist/leaflet.css";
+
+:root{
+	--transition-fast: 180ms;
+}
+
+html,body,#root{
+	height:100%;
+}
+
+/* smooth transitions when switching theme */
+body{
+	transition: background-color var(--transition-fast) ease, color var(--transition-fast) ease;
+}

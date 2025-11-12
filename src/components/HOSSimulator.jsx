@@ -30,7 +30,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { styled } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import MapView from "./MapView";
 import {
   getCoordinatesFromAddress,
@@ -43,12 +43,13 @@ import MuiInput from "./MuiInput";
 const SectionCard = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: theme.spacing(2),
-  boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+  boxShadow: theme.palette.mode === 'dark' ? '0 6px 18px rgba(0,0,0,0.6)' : '0 4px 20px rgba(0,0,0,0.05)',
   border: `1px solid ${theme.palette.divider}`,
-  background: "linear-gradient(180deg, #fff, #fafafa)",
+  background: theme.palette.mode === 'dark' ? 'linear-gradient(180deg, #071721, #08121a)' : 'linear-gradient(180deg, #fff, #fafafa)',
 }));
 
 const HOSSimulator = () => {
+  const theme = useTheme();
   const [currentLocation, setCurrentLocation] = useState(US_STATES[0]);
   const [pickupLocation, setPickupLocation] = useState(US_STATES[9]);
   const [dropoffLocation, setDropoffLocation] = useState(US_STATES[19]);
@@ -136,8 +137,7 @@ const HOSSimulator = () => {
       sx={{
         py: 6,
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #ffffff 100%)",
+        background: theme.palette.mode === 'dark' ? theme.palette.background.default : 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #ffffff 100%)',
       }}
     >
       <Box sx={{ maxWidth: "lg", mx: "auto" }}>
@@ -145,7 +145,7 @@ const HOSSimulator = () => {
           variant="h3"
           fontWeight="bold"
           textAlign="center"
-          sx={{ mb: 1, color: "error.main" }}
+          sx={{ mb: 1, color: 'error.main' }}
         >
           FMCSA Hours of Service Planner
         </Typography>
@@ -167,8 +167,8 @@ const HOSSimulator = () => {
             overflow: "hidden",
             border: "1px solid",
             borderColor: "divider",
-            background: "linear-gradient(180deg, #fff, #fafafa)",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.04)",
+            background: theme.palette.mode === 'dark' ? undefined : 'linear-gradient(180deg, #fff, #fafafa)',
+            boxShadow: theme.palette.mode === 'dark' ? '0 4px 14px rgba(0,0,0,0.6)' : '0 2px 10px rgba(0,0,0,0.04)',
           }}
         >
           <Box
@@ -178,7 +178,7 @@ const HOSSimulator = () => {
               left: 0,
               width: "5px",
               height: "100%",
-              background: "linear-gradient(180deg, #ffb74d, #f57c00)",
+              background: `linear-gradient(180deg, ${theme.palette.error.light || '#ffb74d'}, ${theme.palette.error.main})`,
               borderRadius: "0 4px 4px 0",
             }}
           />
@@ -192,17 +192,17 @@ const HOSSimulator = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
-                  color: "error.dark",
+                  color: 'error.dark',
                 }}
               >
-                <Clock size={18} />
+                <Clock size={18} color={theme.palette.error.dark} />
                 Simulation Assumptions
               </Typography>
             </Box>
 
             <Grid container spacing={1}>
               {ASSUMPTIONS.slice(0, 3).map((a, i) => (
-                <Grid item xs={12} md={4} key={i}>
+                  <Grid item xs={12} md={4} key={i}>
                   <Paper
                     elevation={0}
                     sx={{
@@ -211,11 +211,11 @@ const HOSSimulator = () => {
                       display: "flex",
                       alignItems: "flex-start",
                       gap: 1,
-                      bgcolor: "#fffaf2",
-                      border: "1px solid #ffe0b2",
+                      bgcolor: theme.palette.mode === 'dark' ? '#0e2622' : '#fffaf2',
+                      border: `1px solid ${theme.palette.mode === 'dark' ? '#07332e' : '#ffe0b2'}`,
                       transition: "all 0.2s ease",
                       "&:hover": {
-                        boxShadow: "0 2px 6px rgba(255,152,0,0.2)",
+                        boxShadow: theme.palette.mode === 'dark' ? '0 2px 6px rgba(0,0,0,0.6)' : '0 2px 6px rgba(255,152,0,0.2)',
                       },
                     }}
                   >
@@ -224,7 +224,7 @@ const HOSSimulator = () => {
                         width: 6,
                         height: 6,
                         borderRadius: "50%",
-                        bgcolor: "error.main",
+                        bgcolor: 'error.main',
                         mt: 0.6,
                       }}
                     />
@@ -253,9 +253,9 @@ const HOSSimulator = () => {
                   px: 2.2,
                   py: 0.6,
                   fontSize: "0.6rem",
-                  boxShadow: "0 2px 6px rgba(245,124,0,0.3)",
+                  boxShadow: theme.palette.mode === 'dark' ? '0 6px 18px rgba(0,0,0,0.6)' : '0 2px 6px rgba(245,124,0,0.3)',
                   "&:hover": {
-                    boxShadow: "0 3px 10px rgba(245,124,0,0.4)",
+                    boxShadow: theme.palette.mode === 'dark' ? '0 8px 22px rgba(0,0,0,0.7)' : '0 3px 10px rgba(245,124,0,0.4)',
                     transform: "translateY(-1px)",
                   },
                   transition: "all 0.25s ease",
@@ -268,8 +268,8 @@ const HOSSimulator = () => {
         </SectionCard>
 
         <SectionCard sx={{ mb: 6 }}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-            <Truck size={24} style={{ marginRight: 8, color: "#D32F2F" }} />
+          <Box sx={{ display: "flex", alignItems: "center", mb: 3, color: 'error.main' }}>
+            <Truck size={24} style={{ marginRight: 8 }} color={theme.palette.error.main} />
             <Typography variant="h6" fontWeight="bold">
               Trip & Cycle Inputs
             </Typography>
@@ -300,10 +300,11 @@ const HOSSimulator = () => {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: 2,
-                        backgroundColor: "white",
+                        backgroundColor: theme.palette.mode === 'dark' ? '#071721' : 'white',
+                        color: 'text.primary',
                         "&.Mui-focused fieldset": {
-                          borderColor: "#D32F2F",
-                          boxShadow: "0 0 0 2px rgba(211,47,47,0.2)",
+                          borderColor: 'error.main',
+                          boxShadow: (theme) => `0 0 0 2px ${theme.palette.mode === 'dark' ? 'rgba(255,111,0,0.14)' : 'rgba(211,47,47,0.2)'}`,
                         },
                       },
                     }}
@@ -336,10 +337,11 @@ const HOSSimulator = () => {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: 2,
-                        backgroundColor: "white",
+                        backgroundColor: theme.palette.mode === 'dark' ? 'transparent' : 'white',
+                        color: 'text.primary',
                         "&.Mui-focused fieldset": {
-                          borderColor: "#D32F2F",
-                          boxShadow: "0 0 0 2px rgba(211,47,47,0.2)",
+                          borderColor: 'error.main',
+                          boxShadow: theme.palette.mode === 'dark' ? `0 0 0 2px rgba(255,111,0,0.12)` : `0 0 0 2px rgba(211,47,47,0.2)`,
                         },
                       },
                     }}
@@ -372,10 +374,11 @@ const HOSSimulator = () => {
                     sx={{
                       "& .MuiOutlinedInput-root": {
                         borderRadius: 2,
-                        backgroundColor: "white",
+                        backgroundColor: theme.palette.mode === 'dark' ? 'transparent' : 'white',
+                        color: 'text.primary',
                         "&.Mui-focused fieldset": {
-                          borderColor: "#D32F2F",
-                          boxShadow: "0 0 0 2px rgba(211,47,47,0.2)",
+                          borderColor: 'error.main',
+                          boxShadow: theme.palette.mode === 'dark' ? `0 0 0 2px rgba(255,111,0,0.12)` : `0 0 0 2px rgba(211,47,47,0.2)`,
                         },
                       },
                     }}
@@ -384,7 +387,7 @@ const HOSSimulator = () => {
               />
             </Grid>
             <Grid style={{ width: 330 }} item xs={12} sm={6} md={4}>
-              <MuiInput
+                <MuiInput
                 label="Trip Distance (Miles)"
                 icon={Truck}
                 type="number"
@@ -413,9 +416,9 @@ const HOSSimulator = () => {
                 size="large"
                 sx={{
                   borderRadius: 3,
-                  boxShadow: "0 4px 10px rgba(211,47,47,0.3)",
+                  boxShadow: theme.palette.mode === 'dark' ? '0 8px 26px rgba(0,0,0,0.6)' : '0 4px 10px rgba(211,47,47,0.3)',
                   "&:hover": {
-                    boxShadow: "0 6px 15px rgba(211,47,47,0.4)",
+                    boxShadow: theme.palette.mode === 'dark' ? '0 10px 30px rgba(0,0,0,0.7)' : '0 6px 15px rgba(211,47,47,0.4)',
                     transform: "translateY(-2px)",
                   },
                   transition: "all 0.25s",
@@ -433,7 +436,7 @@ const HOSSimulator = () => {
 
         {results && (
           <Box>
-            <Typography
+                <Typography
               color="error.main"
               variant="h4"
               fontWeight="bold"
@@ -449,7 +452,7 @@ const HOSSimulator = () => {
 
             <SectionCard sx={{ mb: 5 }}>
               <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                <Map size={20} style={{ marginRight: 8, color: "#D32F2F" }} />
+                <Map size={20} style={{ marginRight: 8 }} color={theme.palette.error.main} />
                 <Typography variant="h6" fontWeight="bold">
                   Route & Activity Summary
                 </Typography>
@@ -479,7 +482,7 @@ const HOSSimulator = () => {
                           bgcolor:
                             item.activity.includes("Break") ||
                             item.activity.includes("Rest")
-                              ? "rgba(76,175,80,0.1)"
+                              ? theme.palette.mode === 'dark' ? 'rgba(76,175,80,0.09)' : 'rgba(76,175,80,0.1)'
                               : "inherit",
                         }}
                       >
