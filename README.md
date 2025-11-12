@@ -1,16 +1,31 @@
-# React + Vite
+# HOS Simulator — full project setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The project contains a React (Vite) frontend and a Django REST backend implementing the Hours of Service simulator used in this workspace.
 
-Currently, two official plugins are available:
+Follow the full instructions in the repository root README in this workspace (or run the commands below) to set up both frontend and backend on Windows PowerShell.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Quickstart (backend + frontend)
 
-## React Compiler
+```powershell
+# 1) Backend: create and activate venv
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2) Install backend deps
+pip install --upgrade pip
+pip install -r "django_backend\hos_backend\requirements.txt"
 
-## Expanding the ESLint configuration
+# 3) Run DB migrations and server
+cd django_backend\hos_backend
+python manage.py migrate
+python manage.py runserver
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 4) Frontend (in project root)
+cd ..\..
+npm install
+npm run dev
+```
+
+The frontend (Vite) runs at `http://localhost:5173` and the backend runs at `http://127.0.0.1:8000` by default. The frontend calls the backend endpoint `POST /api/process/` to run the HOS simulation.
+
+If you need a full, dedicated README placed at the repository root, let me know and I will replace the template README completely.
